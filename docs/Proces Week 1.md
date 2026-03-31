@@ -14,7 +14,7 @@ Het doel van het eerste gesprek was nog niet zozeer om een concreet concept of i
 
 ## Interview vragen
 *Dit is een samenvatting met de meest relevante vragen en antwoorden die kwamen uit het eerste gesprek en test met Ihab. 
-Zie (Notulen Test 1)[blabla] voor de volledige ruwe notulen.
+Zie [Ruwe Notulen User Tests](./Ruwe%20Notulen%20User%20Tests.md) voor de volledige ruwe notulen.
 
 ### Gebruik van hulpmiddelen
 >Welke Screenreader gebruikt Ihab? Met welke instellingen?
@@ -62,14 +62,17 @@ Hoe gaat Ihab om met spraakberichten in een Chat App waar geen/weinig rekening i
 
 ### Het prototype
 Link naar GitHub commit van deze versie van het prototype:
+
 https://github.com/KerrBeeldens/AanDePraat/commit/01377bc
 
 Screenshot van het prototype:
+
 ![Eerste prototype](media/week-1-prototype.png)
 
 Dit prototype is een fictieve chat applicatie die ik heb gemaakt zonder al teveel te denken aan toegankelijkheid. Ik heb de website gebouwd volgens common sense principes op het web en ik heb de website een paar keer met een screenreader geprobeerd te gebruiken. Dit met als doel om de chat applicatie niet ontoegankelijk te maken. Ik heb echter niet actief gewerkt aan het verbeteren van de standaard browser functionaliteit.
 
 In het prototype zijn enkele chats te zien, met hierin een audio fragment. Dit fragment is hieronder te beluisteren:
+
 [Spraakbericht Eerste prototype](media/week-1-spraakbericht.mp3)
 
 Het transcript van dit fragment is als volgt:
