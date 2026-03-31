@@ -3,6 +3,181 @@
   box-sizing: border-box;
 }
 
+/*
+Source - https://stackoverflow.com/a/6080482
+Posted by Gabriele Petrioli, modified by community. See post 'Timeline' for change history
+Retrieved 2026-03-30, License - CC BY-SA 3.0
+*/
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+
+:root {
+  font-family: sans-serif;
+}
+
 body {
-  background-color: rebeccapurple;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat {
+  width: clamp(30%, 65ch, 90%);
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 0.5em 1.5em;
+  background-color: rgb(171, 171, 171);
+  border-radius: 16px 16px 0 0;
+}
+
+.receiver-profile-picuture {
+  width: 48px;
+  border-radius: 100%;
+}
+
+main {
+  background-color: rgb(240, 240, 240);
+  border-radius: 0 0 16px 16px;
+}
+
+.chat-container {
+  padding: 1.5em;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  align-items: center;
+  height: 70vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.chat-date {
+  color: rgb(103, 144, 61);
+  font-weight: bold;
+}
+
+.message-block {
+  display: grid;
+  gap: 1em;
+  max-width: 80%;
+  grid-template-columns: [profile-picture] auto [messages] 1fr;
+
+  &.send {
+    align-self: flex-end;
+  }
+
+  &.receive {
+    align-self: flex-start;
+  }
+}
+
+.chat-profile-picture {
+  grid-column: profile-picture;
+  grid-row: 1 / 2;
+  width: 48px;
+  border-radius: 100%;
+}
+
+.chat-message {
+  grid-column: messages;
+  padding: 1em;
+  border-radius: 8px;
+
+  & header {
+    display: flex;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    gap: 16px;
+    font-size: smaller; /* TODO betere eenheid */
+  }
+
+  &.send {
+    justify-self: end;
+    background-color: rgb(196, 227, 166);
+
+    & header {
+      color: rgb(41, 41, 41);
+    }
+  }
+
+  &.receive {
+    justify-content: start;
+    background-color: rgb(207, 207, 207);
+
+    & header {
+      color: rgb(103, 144, 61);
+    }
+  }
+}
+
+.sender-time {
+  margin-left: auto;
+}
+
+.input {
+  padding: 1.5em;
+  display: flex;
+  width: 100%;
+  gap: 8px;
+}
+
+#message-input {
+  field-sizing: content;
+  flex: 1;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+  resize: none;
+  font-size: 1.125rem;
+}
+
+.message-input-button {
+  align-self: flex-start;
+  flex-shrink: 0;
+  height: 3em;
+  width: 3em;
+  border-radius: 100%;
+  padding: 0;
+  border: none;
+  background-color: rgb(103, 144, 61);
+
+  &:hover {
+    background-color: rgb(135, 189, 80);
+  }
+
+  & img {
+    width: 100%;
+  }
 }
