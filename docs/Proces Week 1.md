@@ -8,9 +8,13 @@ De vragen bedenken en het prototype maken kostte een uur of zes.
 
 Ik heb vandaag geleerd over de Exclusive Design Principles voor de Weekly Geek, ik heb geleerd hoe ik een audio fragment kan toevoegen in HTML en ik heb geleerd te werken met de `scrollTop` property om het mogelijk te maken dat de chat automatisch verder scrolled als er een nieuw bericht wordt verstuurd.
 
-# Check-out dinsdag 30/03 (test 1)
+# Check-out dinsdag 31/03 (test 1)
 
-TODO
+In de ochtend zijn in de weekly geek de Exclusive Design Principles nogmaals besproken. Verder was vandaag het eerste interview met de gebruiker. Ik vond dit best spannend, omdat ik niet goed wist wat ik moest verwachten, maar ook omdat ik heel benieuwd was of mijn prototype een beetje zou werken. Dit maakte in feite natuurlijk niet uit omdat heel mijn doel was om te kijken wat er niet zou werken als ik nagenoeg geen rekening hield met toegankelijkheid, maar ik hoopte ook weer niet dat het helemaal niet zou werken. Gelukkig bleek bij de test alles best goed te gaan. Zoals ik mijn test verslag ook schreef zorgde het typen en luisteren naar het spraakbericht tegelijkertijd voor problemen, iets dat ik overigens helemaal niet had overwogen, maar dit is juist een mooi aankooppunt om mijn volgende iteratie op te focussen.
+
+De weekly geek en het interview duurde samen een uur of vier. Ik heb de rest van de dag rustig aan gedaan en vooral gefocussed op het documenteren van het interview en de testresultaten. Ik hoop dit Paasweekend en uiteraard maandag een iteratie te doen.
+
+Ik heb vandaag vooral geleerd tegen welke problemen Ihab aanloopt. Dit was best wel een eye-opener (bij gebrek aan een betere omschrijving). Het was erg heftig om te zien hoe zelfs de meest basale taken een uitdaging voor hem was. Het is voor mij moeilijk voor te stellen hoe het web moet voelen als je dit ervaart via een screenreader.
 
 # Voortgang week 1
 
