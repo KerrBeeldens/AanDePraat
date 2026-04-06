@@ -1,92 +1,100 @@
 <!doctype html>
 <html lang="nl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="scripts/main.js" defer></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Aan De Praat</title>
-  </head>
-  <body>
-    <div class="chat">
-      <header class="chat-header">
-        <img src="resources/pfp.png" alt="" class="receiver-profile-picuture" />
-        <h1>Chat met Kerr Beeldens</h1>
-      </header>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="scripts/main.js" defer></script>
 
-      <main>
-        <section
-          class="chat-container"
-          aria-live="polite"
-          role="log"
-          aria-relevant="additions"
-          aria-atomic="false"
-        >
-          <p class="chat-date">Vandaag</p>
+  <title>Aan De Praat</title>
+</head>
 
-          <div class="message-block receive">
-            <img
-              src="resources/pfp.png"
-              alt=""
-              class="chat-profile-picture sender"
-            />
-            <section class="chat-message receive">
-              <header>
-                <span class="sender-name">Kerr</span>
-                <time class="sender-time" datetime="10:30">10:30</time>
-              </header>
+<body>
+  <div class="chat">
+    <header class="chat-header">
+      <img src="resources/pfp.png" alt="" class="receiver-profile-picuture" />
+      <h1>Chat met Kerr Beeldens</h1>
+    </header>
 
-              <p>Hey, zou je deze vragen voor mij kunnen beantwoorden?</p>
-            </section>
+    <main>
+      <section class="chat-container" aria-live="polite" role="log" aria-relevant="additions" aria-atomic="false">
+        <p class="chat-date">Vandaag</p>
 
-            <section class="chat-message receive">
-              <header>
-                <time class="sender-time" datetime="10:31">10:31</time>
-              </header>
+        <div class="message-block receive">
+          <img src="resources/pfp.png" alt="" class="chat-profile-picture sender" />
+          <section class="chat-message receive">
+            <header>
+              <span class="sender-name">Kerr</span>
+              <time class="sender-time" datetime="10:30">10:30</time>
+            </header>
 
-              <audio controls src="resources/spraakbericht.mp3"></audio>
-            </section>
-          </div>
+            <p>Hey, zou je deze vragen voor mij kunnen beantwoorden?</p>
+          </section>
 
-          <div class="message-block send">
-            <section class="chat-message send">
-              <header>
-                <span class="sender-name">Jij</span>
-                <time class="sender-time" datetime="10:44">10:44</time>
-              </header>
+          <section class="chat-message receive">
+            <header>
+              <time class="sender-time" datetime="10:31">10:31</time>
+            </header>
 
-              <p>Ja hoor, komt goed.</p>
-            </section>
+            <audio controls id="voiceMessage">
+              <source src="resources/spraakbericht.mp3" type="audio/mpeg">
+            </audio>
 
-            <section class="chat-message send">
-              <header>
-                <time class="sender-time" datetime="10:45">10:45</time>
-              </header>
+            <div class="controls" role="group" aria-label="Audiobediening">
+              <button class="play-pause" aria-controls="voiceMessage">
+                Start
+              </button>
 
-              <p>Ik ga je spraakbericht nu luisteren!</p>
-            </section>
-          </div>
-        </section>
+              <button class="stop" aria-controls="voiceMessage">
+                Stop
+              </button>
 
-        <form action="" class="input">
-          <textarea
-            name="message-input"
-            id="message-input"
-            aria-label="Jouw bericht"
-          ></textarea>
-          <button
-            type="submit"
-            class="message-input-button"
-            aria-label="Verstuur bericht"
-          >
-            <img src="resources/send.svg" alt="" />
-          </button>
-        </form>
-      </main>
+              <button class="rwd" aria-controls="voiceMessage">
+                terug
+              </button>
 
-      <footer></footer>
-    </div>
-  </body>
+              <button class="fwd" aria-controls="voiceMessage">
+                vooruit
+              </button>
+
+              <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x">1x</button>
+              <div class="time" aria-live="off">00:00</div>
+            </div>
+          </section>
+        </div>
+
+        <div class="message-block send">
+          <section class="chat-message send">
+            <header>
+              <span class="sender-name">Jij</span>
+              <time class="sender-time" datetime="10:44">10:44</time>
+            </header>
+
+            <p>Ja hoor, komt goed.</p>
+          </section>
+
+          <section class="chat-message send">
+            <header>
+              <time class="sender-time" datetime="10:45">10:45</time>
+            </header>
+
+            <p>Ik ga je spraakbericht nu luisteren!</p>
+          </section>
+        </div>
+      </section>
+
+      <form action="" class="input">
+        <textarea name="message-input" id="message-input" aria-label="Jouw bericht"></textarea>
+        <button type="submit" class="message-input-button" aria-label="Verstuur bericht">
+          <img src="resources/send.svg" alt="" />
+        </button>
+      </form>
+    </main>
+
+    <footer></footer>
+  </div>
+</body>
+
 </html>

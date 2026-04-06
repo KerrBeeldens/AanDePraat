@@ -4,7 +4,97 @@ const messageInput = form.querySelector("#message-input");
 const chatContainer = document.querySelector(".chat-container");
 
 const messageBlocks = document.querySelectorAll(".message-block.send");
-const currentMessageBlock = messageBlocks[messageBlocks.length - 1];
+let currentMessageBlock = messageBlocks[messageBlocks.length - 1];
+
+// Audio elements
+const playPauseBtn = document.querySelector(".play-pause");
+const stopBtn = document.querySelector(".stop");
+const rwdBtn = document.querySelector(".rwd");
+const fwdBtn = document.querySelector(".fwd");
+const speedBtn = document.querySelector(".speed")
+const timeLabel = document.querySelector(".time");
+const player = document.querySelector("audio");
+
+// Remove all native controls
+player.removeAttribute("controls");
+
+playPauseBtn.addEventListener("click", () => {
+  if (player.paused) {
+    player.play();
+    playPauseBtn.textContent = "Pause";
+  } else {
+    player.pause();
+    playPauseBtn.textContent = "Play";
+  }
+});
+
+messageInput.addEventListener("keydown", (e) => {
+  // Ctrl + Space (or Cmd + Space alternative)
+  if ((e.ctrlKey || e.metaKey) && e.code === "Space") {
+    e.preventDefault();
+    if (player.paused) {
+      player.play();
+      playPauseBtn.textContent = "Pause";
+    } else {
+      player.pause();
+      playPauseBtn.textContent = "Play";
+    }
+  }
+});
+
+stopBtn.addEventListener("click", () => {
+  player.pause();
+  player.currentTime = 0;
+  playPauseBtn.textContent = "Play";
+});
+
+rwdBtn.addEventListener("click", () => {
+  player.currentTime -= 3;
+});
+
+fwdBtn.addEventListener("click", () => {
+  player.currentTime += 3;
+  if (player.currentTime >= player.duration || player.paused) {
+    player.pause();
+    player.currentTime = 0;
+    playPauseBtn.textContent = "Play";
+  }
+});
+
+player.ontimeupdate = () => {
+  const minutes = Math.floor(player.currentTime / 60);
+  const seconds = Math.floor(player.currentTime - minutes * 60);
+  const minuteValue = minutes < 10 ? `0${minutes}` : minutes;
+  const secondValue = seconds < 10 ? `0${seconds}` : seconds;
+
+  const mediaTime = `${minuteValue}:${secondValue}`;
+  timeLabel.textContent = mediaTime;
+};
+
+speedBtn.addEventListener("click", () => {
+  let newSpeed;
+
+  console.log(speedBtn.textContent);
+
+  switch (speedBtn.textContent) {
+    case "1x":
+      newSpeed = 1.5;
+      break;
+    case "1.5x":
+      newSpeed = 2;
+      break;
+    case "2x":
+      newSpeed = 2.5;
+      break;
+    case "2.5x":
+      newSpeed = 1;
+      break;
+  }
+
+  speedBtn.textContent = newSpeed.toString() + "x";
+  speedBtn.setAttribute("aria-label", `Afspeelsnelheid: ${newSpeed}x`);
+  player.playbackRate = newSpeed;
+});
 
 // Source - https://stackoverflow.com/q/8187512
 // Posted by user1027620, modified by community. See post 'Timeline' for change history
