@@ -18,7 +18,8 @@ const player = document.querySelector("audio");
 // Remove all native controls
 player.removeAttribute("controls");
 
-playPauseBtn.addEventListener("click", () => {
+// Voice message controls
+function togglePlayback() {
   if (player.paused) {
     player.play();
     playPauseBtn.textContent = "Pause";
@@ -26,52 +27,28 @@ playPauseBtn.addEventListener("click", () => {
     player.pause();
     playPauseBtn.textContent = "Play";
   }
-});
+}
 
-messageInput.addEventListener("keydown", (e) => {
-  // Ctrl + Space (or Cmd + Space alternative)
-  if ((e.ctrlKey || e.metaKey) && e.code === "Space") {
-    e.preventDefault();
-    if (player.paused) {
-      player.play();
-      playPauseBtn.textContent = "Pause";
-    } else {
-      player.pause();
-      playPauseBtn.textContent = "Play";
-    }
-  }
-});
-
-stopBtn.addEventListener("click", () => {
+function stop() {
   player.pause();
   player.currentTime = 0;
   playPauseBtn.textContent = "Play";
-});
+}
 
-rwdBtn.addEventListener("click", () => {
+function rewind() {
   player.currentTime -= 3;
-});
+}
 
-fwdBtn.addEventListener("click", () => {
+function forward() {
   player.currentTime += 3;
   if (player.currentTime >= player.duration || player.paused) {
     player.pause();
     player.currentTime = 0;
     playPauseBtn.textContent = "Play";
   }
-});
+}
 
-player.ontimeupdate = () => {
-  const minutes = Math.floor(player.currentTime / 60);
-  const seconds = Math.floor(player.currentTime - minutes * 60);
-  const minuteValue = minutes < 10 ? `0${minutes}` : minutes;
-  const secondValue = seconds < 10 ? `0${seconds}` : seconds;
-
-  const mediaTime = `${minuteValue}:${secondValue}`;
-  timeLabel.textContent = mediaTime;
-};
-
-speedBtn.addEventListener("click", () => {
+function cycleSpeed() {
   let newSpeed;
 
   console.log(speedBtn.textContent);
@@ -94,7 +71,68 @@ speedBtn.addEventListener("click", () => {
   speedBtn.textContent = newSpeed.toString() + "x";
   speedBtn.setAttribute("aria-label", `Afspeelsnelheid: ${newSpeed}x`);
   player.playbackRate = newSpeed;
+}
+
+
+// Button Event listeners
+playPauseBtn.addEventListener("click", () => {
+  togglePlayback();
 });
+
+stopBtn.addEventListener("click", () => {
+  stop();
+});
+
+rwdBtn.addEventListener("click", () => {
+  rewind();
+});
+
+fwdBtn.addEventListener("click", () => {
+  forward();
+});
+
+speedBtn.addEventListener("click", () => {
+  cycleSpeed();
+});
+
+// Keyboard shortcuts
+document.body.addEventListener("keydown", (e) => {
+  const isModifier = e.ctrlKey || e.metaKey;
+
+  if (!isModifier) return;
+
+  switch (e.code) {
+    case "Space":
+      e.preventDefault();
+      togglePlayback();
+      break;
+
+    case "ArrowLeft":
+      e.preventDefault();
+      rewind();
+      break;
+
+    case "ArrowRight":
+      e.preventDefault();
+      forward();
+      break;
+
+    case "ArrowUp":
+      e.preventDefault();
+      cycleSpeed();
+      break;
+  }
+});
+
+player.ontimeupdate = () => {
+  const minutes = Math.floor(player.currentTime / 60);
+  const seconds = Math.floor(player.currentTime - minutes * 60);
+  const minuteValue = minutes < 10 ? `0${minutes}` : minutes;
+  const secondValue = seconds < 10 ? `0${seconds}` : seconds;
+
+  const mediaTime = `${minuteValue}:${secondValue}`;
+  timeLabel.textContent = mediaTime;
+};
 
 // Source - https://stackoverflow.com/q/8187512
 // Posted by user1027620, modified by community. See post 'Timeline' for change history
