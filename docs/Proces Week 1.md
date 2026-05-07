@@ -18,7 +18,15 @@ Ik heb vandaag vooral geleerd tegen welke problemen Ihab aanloopt. Dit was best 
 
 # Voortgang week 1
 
-TODO
+Voor deze eerst week heb ik mijn casus gekozen en een eerste versie gemaakt van het prototype. De casus die ik heb gekozen gaat over spraakberichten en voor de eerste week heb ik daarom een fictieve chat applicatie gemaakt met daarin wat chat berichten en één spraakbericht. De applicatie is te zien in de onderstaande figuur.
+
+![Eerste prototype](media/week-1-prototype.png)
+
+Hierin is te zien hoe een chatvenster met een chat met mij open staat. Ik vraag op Ihab wat vragen kan beantwoorden, met daarbij een spraakbericht met vragen. Ihab stuurt een reactie terug. Verder is het nog mogelijk berichten te sturen door een bericht in het input veld onderaand te typen en op de verstuur knop te drukken. Met enter kan het bericht ook verstuurd worden en met control + enter kan een nieuwe regel in een bericht gestart worden.
+
+De eerste test verliep goed, al zaten er duidelijk problemen in het prototype. Ik was op dit punt vooral benieuwd naar de problemen die Ihab heeft als hij spraakberichten ontvangt en hierop reageert. Tijdens de test kwam vooral naar voren dat hij behoefte heeft aan shortcuts om een spraakbericht makkelijk op pauze te zetten terwijl hij zijn reactie typt. Anders moet hij typen en luisteren tegelijkertijd en dit gaat niet goed. Dit wordt alleen maar erger door de screenreader die ook door het spraakbericht heen praat.
+
+Voor de volgende test zal ik in ieder geval ervoor zorgen dat de shortcuts in het project verwerkt zijn, zodat reageren hopelijk makkelijker wordt voor Ihab.
 
 # Test rapportage week 1
 
