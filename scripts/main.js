@@ -6,20 +6,78 @@ const chatContainer = document.querySelector(".chat-container");
 const messageBlocks = document.querySelectorAll(".message-block.send");
 let currentMessageBlock = messageBlocks[messageBlocks.length - 1];
 
-// Audio elements
-const playPauseBtn = document.querySelector(".play-pause");
-const stopBtn = document.querySelector(".stop");
-const rwdBtn = document.querySelector(".rwd");
-const fwdBtn = document.querySelector(".fwd");
-const speedBtn = document.querySelector(".speed")
-const timeLabel = document.querySelector(".time");
-const player = document.querySelector("audio");
+const players = document.querySelectorAll(".voice-message");
+let activePlayer;
 
-// Remove all native controls
-player.removeAttribute("controls");
+// Setup players
+players.forEach((player) => {
+  // Remove all native controls
+  const audio = player.querySelector("audio");
+  audio.removeAttribute("controls");
+
+  // Audio elements
+  const playPauseBtn = player.querySelector(".play-pause");
+  const stopBtn = player.querySelector(".stop");
+  const rwdBtn = player.querySelector(".rwd");
+  const fwdBtn = player.querySelector(".fwd");
+  const speedBtn = player.querySelector(".speed");
+  const timeLabel = player.querySelector(".time");
+
+  // Button Event listeners
+  playPauseBtn.addEventListener("click", () => {
+    togglePlayback(audio, playPauseBtn);
+    activePlayer = player;
+  });
+
+  stopBtn.addEventListener("click", () => {
+    stop(audio, playPauseBtn);
+    activePlayer = player;
+  });
+
+  rwdBtn.addEventListener("click", () => {
+    rewind(audio);
+    activePlayer = player;
+  });
+
+  fwdBtn.addEventListener("click", () => {
+    forward(audio, playPauseBtn);
+    activePlayer = player;
+  });
+
+  speedBtn.addEventListener("click", () => {
+    cycleSpeed(audio, speedBtn);
+  });
+
+  audio.ontimeupdate = () => {
+    const minutes = Math.floor(audio.currentTime / 60);
+    const seconds = Math.floor(audio.currentTime - minutes * 60);
+    const minuteValue = minutes < 10 ? `0${minutes}` : minutes;
+    const secondValue = seconds < 10 ? `0${seconds}` : seconds;
+
+    const mediaTime = `${minuteValue}:${secondValue}`;
+    timeLabel.textContent = mediaTime;
+  };
+
+  // // When ANY element inside gets focus
+  // player.addEventListener("focusin", (e) => {
+  //   activePlayer = e.currentTarget;
+  // });
+
+  // // When ANY element inside is clicked
+  // player.addEventListener("click", () => {
+  //   activePlayer = player;
+  // });
+});
 
 // Voice message controls
-function togglePlayback() {
+function togglePlayback(player, playPauseBtn) {
+  // Stop all other players
+  players.forEach((audio) => {
+    if (audio.querySelector("audio") !== player) {
+      stop(audio.querySelector("audio"), audio.querySelector(".play-pause"));
+    }
+  });
+
   if (player.paused) {
     player.play();
     playPauseBtn.textContent = "Pause";
@@ -29,29 +87,27 @@ function togglePlayback() {
   }
 }
 
-function stop() {
+function stop(player, playPauseBtn) {
   player.pause();
   player.currentTime = 0;
   playPauseBtn.textContent = "Play";
 }
 
-function rewind() {
+function rewind(player) {
   player.currentTime -= 3;
 }
 
-function forward() {
+function forward(player, playPauseBtn) {
   player.currentTime += 3;
-  if (player.currentTime >= player.duration || player.paused) {
+  if (player.currentTime >= player.duration) {
     player.pause();
     player.currentTime = 0;
     playPauseBtn.textContent = "Play";
   }
 }
 
-function cycleSpeed() {
+function cycleSpeed(player, speedBtn) {
   let newSpeed;
-
-  console.log(speedBtn.textContent);
 
   switch (speedBtn.textContent) {
     case "1x":
@@ -73,66 +129,38 @@ function cycleSpeed() {
   player.playbackRate = newSpeed;
 }
 
-
-// Button Event listeners
-playPauseBtn.addEventListener("click", () => {
-  togglePlayback();
-});
-
-stopBtn.addEventListener("click", () => {
-  stop();
-});
-
-rwdBtn.addEventListener("click", () => {
-  rewind();
-});
-
-fwdBtn.addEventListener("click", () => {
-  forward();
-});
-
-speedBtn.addEventListener("click", () => {
-  cycleSpeed();
-});
-
 // Keyboard shortcuts
 document.body.addEventListener("keydown", (e) => {
+  if (!activePlayer) return;
   const isModifier = e.ctrlKey || e.metaKey;
-
   if (!isModifier) return;
+
+  const audio = activePlayer.querySelector("audio");
+  const playPauseBtn = activePlayer.querySelector(".play-pause");
+  const speedBtn = activePlayer.querySelector(".speed");
 
   switch (e.code) {
     case "Space":
       e.preventDefault();
-      togglePlayback();
+      togglePlayback(audio, playPauseBtn);
       break;
 
     case "ArrowLeft":
       e.preventDefault();
-      rewind();
+      rewind(audio);
       break;
 
     case "ArrowRight":
       e.preventDefault();
-      forward();
+      forward(audio, playPauseBtn);
       break;
 
     case "ArrowUp":
       e.preventDefault();
-      cycleSpeed();
+      cycleSpeed(audio, speedBtn);
       break;
   }
 });
-
-player.ontimeupdate = () => {
-  const minutes = Math.floor(player.currentTime / 60);
-  const seconds = Math.floor(player.currentTime - minutes * 60);
-  const minuteValue = minutes < 10 ? `0${minutes}` : minutes;
-  const secondValue = seconds < 10 ? `0${seconds}` : seconds;
-
-  const mediaTime = `${minuteValue}:${secondValue}`;
-  timeLabel.textContent = mediaTime;
-};
 
 // Source - https://stackoverflow.com/q/8187512
 // Posted by user1027620, modified by community. See post 'Timeline' for change history
@@ -180,10 +208,7 @@ function sendMessage() {
   let senderTime = document.createElement("span");
   senderTime.className = "sender-time";
   let now = new Date();
-  senderTime.textContent =
-    now.getHours().toString().padStart(2, "0") +
-    ":" +
-    now.getMinutes().toString().padStart(2, "0");
+  senderTime.textContent = now.getHours().toString().padStart(2, "0") + ":" + now.getMinutes().toString().padStart(2, "0");
 
   header.appendChild(senderName);
   header.appendChild(senderTime);
@@ -209,3 +234,38 @@ function sendMessage() {
   // Scroll to bottom
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
+
+// Fake AI generation delay
+const summaryButton = document.querySelector(".summary");
+const aiSummaryBlock = document.querySelector("#ai-summary-block");
+
+summaryButton.addEventListener("click", () => {
+  // Show block with loader
+  aiSummaryBlock.classList.remove("hidden");
+
+  const loaderMessage = aiSummaryBlock.querySelector(".loading-message");
+  const summaryContent = aiSummaryBlock.querySelector(".summary-content");
+
+  // Prevent double clicking
+  summaryButton.disabled = true;
+
+  // Scroll again after content appears
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  // Move keyboard focus to first summary
+  const firstSummary = aiSummaryBlock.querySelector(".first-summary");
+  firstSummary.focus();
+
+  // Fake AI loading delay
+  setTimeout(() => {
+    loaderMessage.classList.add("hidden");
+    summaryContent.classList.remove("hidden");
+
+    // Scroll again after content appears
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+    // Focus first summary
+    const firstSummary = aiSummaryBlock.querySelector(".first-summary");
+    firstSummary.focus();
+  }, 2000);
+});

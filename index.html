@@ -1,101 +1,236 @@
 <!doctype html>
 <html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="scripts/main.js" defer></script>
 
-  <link rel="stylesheet" href="css/style.css" />
-  <script src="scripts/main.js" defer></script>
+    <title>Aan De Praat</title>
+  </head>
 
-  <title>Aan De Praat</title>
-</head>
+  <body>
+    <div class="chat">
+      <header class="chat-header">
+        <img src="resources/pfp.png" alt="" class="receiver-profile-picuture" />
+        <h1>Chat met Kerr Beeldens</h1>
+      </header>
 
-<body>
-  <div class="chat">
-    <header class="chat-header">
-      <img src="resources/pfp.png" alt="" class="receiver-profile-picuture" />
-      <h1>Chat met Kerr Beeldens</h1>
-    </header>
+      <main>
+        <section class="chat-container" aria-live="polite" role="log" aria-relevant="additions" aria-atomic="false">
+          <p class="chat-date">Vandaag</p>
 
-    <main>
-      <section class="chat-container" aria-live="polite" role="log" aria-relevant="additions" aria-atomic="false">
-        <p class="chat-date">Vandaag</p>
+          <div class="message-block receive">
+            <img src="resources/pfp.png" alt="" class="chat-profile-picture sender" />
+            <section class="chat-message receive">
+              <header>
+                <h2 class="sender-name">Kerr</h2>
+                <time class="sender-time" datetime="10:30">10:30</time>
+              </header>
 
-        <div class="message-block receive">
-          <img src="resources/pfp.png" alt="" class="chat-profile-picture sender" />
-          <section class="chat-message receive">
-            <header>
-              <span class="sender-name">Kerr</span>
-              <time class="sender-time" datetime="10:30">10:30</time>
-            </header>
+              <p>Hey, zou je deze vragen voor mij kunnen beantwoorden?</p>
+            </section>
 
-            <p>Hey, zou je deze vragen voor mij kunnen beantwoorden?</p>
-          </section>
+            <section class="chat-message receive">
+              <header>
+                <time class="sender-time" datetime="10:31">10:31</time>
+              </header>
 
-          <section class="chat-message receive">
-            <header>
-              <time class="sender-time" datetime="10:31">10:31</time>
-            </header>
+              <div class="voice-message">
+                <div class="audio-element">
+                  <audio controls id="voiceMessage">
+                    <source src="resources/spraakbericht.mp3" type="audio/mpeg" />
+                  </audio>
 
-            <audio controls id="voiceMessage">
-              <source src="resources/spraakbericht.mp3" type="audio/mpeg">
-            </audio>
+                  <div class="controls" role="group" aria-label="Audiobediening">
+                    <button class="play-pause" aria-controls="voiceMessage" aria-keyshortcuts="Control+Space">Start</button>
 
-            <div class="controls" role="group" aria-label="Audiobediening">
-              <button class="play-pause" aria-controls="voiceMessage" aria-keyshortcuts="Control+Space">
-                Start
-              </button>
+                    <button class="stop" aria-controls="voiceMessage">Stop</button>
 
-              <button class="stop" aria-controls="voiceMessage">
-                Stop
-              </button>
+                    <button class="rwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
 
-              <button class="rwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowLeft">
-                terug 3s
-              </button>
+                    <button class="fwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
 
-              <button class="fwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowRight">
-                vooruit 3s
-              </button>
+                    <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
 
-              <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x"
-                aria-keyshortcuts="Control+ArrowUp">1x</button>
-              <div class="time" aria-live="off">00:00</div>
+                    <span class="time" aria-live="off">00:00</span>
+                  </div>
+                </div>
+
+                <button class="summary">Genereer Samenvatting</button>
+              </div>
+            </section>
+          </div>
+
+          <div class="message-block receive ai-summary hidden" id="ai-summary-block">
+            <img src="resources/aipfp.png" alt="" class="chat-profile-picture sender" />
+
+            <section class="chat-message receive loading-message">
+              <header>
+                <h2 class="sender-name">AI Chatbot</h2>
+                <time class="sender-time" datetime="10:30">10:30</time>
+              </header>
+
+              <p>Spraakbericht aan het samenvatten...</p>
+
+              <div class="loader-container">
+                <div class="loader"></div>
+              </div>
+            </section>
+
+            <div class="summary-content hidden">
+              <section class="chat-message receive first-summary" tabindex="-1">
+                <header>
+                  <h2 class="sender-name">Samenvatting (1 van 4)</h2>
+                </header>
+
+                <p>Kerr stuurt je een spraakbericht omdat hij dit makkelijker vindt dan typen. Hij vraagt hoe het met je gaat en of je nog leuke dingen hebt meegemaakt.</p>
+
+                <div class="voice-message">
+                  <div class="audio-element">
+                    <audio controls id="voiceMessage">
+                      <source src="resources/spraakbericht_samenvatting_1.mp3" type="audio/mpeg" />
+                    </audio>
+
+                    <div class="controls" role="group" aria-label="Audiobediening">
+                      <button class="play-pause" aria-controls="voiceMessage" aria-keyshortcuts="Control+Space">Start</button>
+
+                      <button class="stop" aria-controls="voiceMessage">Stop</button>
+
+                      <button class="rwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
+
+                      <button class="fwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
+
+                      <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
+
+                      <span class="time" aria-live="off">00:00</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="chat-message receive">
+                <header>
+                  <h2 class="sender-name">Samenvatting (2 van 4)</h2>
+                </header>
+
+                <p>Kerr vraagt hoe het gaat met werk of school, en wat je nu precies aan het doen bent.</p>
+
+                <div class="voice-message">
+                  <div class="audio-element">
+                    <audio controls id="voiceMessage">
+                      <source src="resources/spraakbericht_samenvatting_2.mp3" type="audio/mpeg" />
+                    </audio>
+
+                    <div class="controls" role="group" aria-label="Audiobediening">
+                      <button class="play-pause" aria-controls="voiceMessage" aria-keyshortcuts="Control+Space">Start</button>
+
+                      <button class="stop" aria-controls="voiceMessage">Stop</button>
+
+                      <button class="rwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
+
+                      <button class="fwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
+
+                      <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
+
+                      <span class="time" aria-live="off">00:00</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="chat-message receive">
+                <header>
+                  <h2 class="sender-name">Samenvatting (3 van 4)</h2>
+                </header>
+
+                <p>Kerr vraagt of je nog een tip hebt voor een film of serie.</p>
+
+                <div class="voice-message">
+                  <div class="audio-element">
+                    <audio controls id="voiceMessage">
+                      <source src="resources/spraakbericht_samenvatting_3.mp3" type="audio/mpeg" />
+                    </audio>
+
+                    <div class="controls" role="group" aria-label="Audiobediening">
+                      <button class="play-pause" aria-controls="voiceMessage" aria-keyshortcuts="Control+Space">Start</button>
+
+                      <button class="stop" aria-controls="voiceMessage">Stop</button>
+
+                      <button class="rwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
+
+                      <button class="fwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
+
+                      <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
+
+                      <span class="time" aria-live="off">00:00</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="chat-message receive">
+                <header>
+                  <h2 class="sender-name">Samenvatting (4 van 4)</h2>
+                </header>
+
+                <p>Kerr wil graag weer eens met je afspreken, want het is lang geleden. Wanneer heb je tijd?</p>
+
+                <div class="voice-message">
+                  <div class="audio-element">
+                    <audio controls id="voiceMessage">
+                      <source src="resources/spraakbericht_samenvatting_4.mp3" type="audio/mpeg" />
+                    </audio>
+
+                    <div class="controls" role="group" aria-label="Audiobediening">
+                      <button class="play-pause" aria-controls="voiceMessage" aria-keyshortcuts="Control+Space">Start</button>
+
+                      <button class="stop" aria-controls="voiceMessage">Stop</button>
+
+                      <button class="rwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
+
+                      <button class="fwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
+
+                      <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
+
+                      <span class="time" aria-live="off">00:00</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
-          </section>
-        </div>
+          </div>
 
-        <div class="message-block send">
-          <section class="chat-message send">
-            <header>
-              <span class="sender-name">Jij</span>
-              <time class="sender-time" datetime="10:44">10:44</time>
-            </header>
+          <div class="message-block send">
+            <section class="chat-message send">
+              <header>
+                <h2 class="sender-name">Jij</h2>
+                <time class="sender-time" datetime="10:44">10:44</time>
+              </header>
 
-            <p>Ja hoor, komt goed.</p>
-          </section>
+              <p>Ja hoor, komt goed.</p>
+            </section>
 
-          <section class="chat-message send">
-            <header>
-              <time class="sender-time" datetime="10:45">10:45</time>
-            </header>
+            <section class="chat-message send">
+              <header>
+                <time class="sender-time" datetime="10:45">10:45</time>
+              </header>
 
-            <p>Ik ga je spraakbericht nu luisteren!</p>
-          </section>
-        </div>
-      </section>
+              <p>Ik ga je spraakbericht nu luisteren!</p>
+            </section>
+          </div>
+        </section>
 
-      <form action="" class="input">
-        <textarea name="message-input" id="message-input" aria-label="Jouw bericht"></textarea>
-        <button type="submit" class="message-input-button" aria-label="Verstuur bericht">
-          <img src="resources/send.svg" alt="" />
-        </button>
-      </form>
-    </main>
+        <form action="" class="input">
+          <textarea name="message-input" id="message-input" aria-label="Jouw bericht"></textarea>
+          <button type="submit" class="message-input-button" aria-label="Verstuur bericht">
+            <img src="resources/send.svg" alt="" />
+          </button>
+        </form>
+      </main>
 
-    <footer></footer>
-  </div>
-</body>
-
+      <footer></footer>
+    </div>
+  </body>
 </html>
