@@ -4,11 +4,29 @@
 
 # Check-out dinsdag 07/04 (iteratie + test 2)
 
-TODO
+Vandaag heb ik gewerkt aan een tweede iteratie van mijn chatapplicatie. Ik heb de standaard audio controls vervangen door toegankelijkere custom controls en keyboard shortcuts toegevoegd, zoals pauzeren met Ctrl + Spatie. Daarna heb ik een gebruikerstest uitgevoerd met Ihab om te onderzoeken hoe hij deze nieuwe bediening gebruikt tijdens het luisteren en reageren op een spraakbericht.
+
+Tijdens de test probeerde Ihab eerst zelf de shortcuts te ontdekken, maar dit lukte niet omdat de screenreader deze niet voorlas. Nadat ik de shortcuts had uitgelegd, kon hij het spraakbericht soepel pauzeren, typen en weer hervatten zonder focusverlies. Dit werkte veel beter dan tijdens de vorige test. Samen kosten me dit ongeveer een uur of 8 (ik had in het weekend ook nog een beetje doorgewerkt)
+
+Ik heb geleerd dat keyboard shortcuts alleen nuttig zijn als gebruikers ook kunnen ontdekken dat ze bestaan. De shortcuts werden niet automatisch voorgelezen door de screenreader, waardoor Ihab ze moeilijk kon vinden. Ook zag ik dat het kunnen bedienen van audio zonder focusverlies een grote verbetering was voor de gebruikservaring. Daarnaast gaf Ihab waardevolle feedback over extra shortcuts, zoals doorspoelen en snelheid aanpassen.
+
+Voor de volgende test ga de feedback uit deze test verwerken door extra shortcuts toe te voegen voor doorspoelen en snelheid aanpassen. Daarnaast wil ik ervoor zorgen dat shortcuts worden voorgelezen wanneer een knop focus krijgt en enkele knopnamen duidelijker maken. Daarnaast wil ik de volgende keer ook een wat grotere, interessantere functionaliteit toevoegen.
 
 # Voortgang week 2
 
-TODO
+In week 2 heb ik verder gewerkt aan de toegankelijkheid van mijn chatapplicatie voor screenreadergebruikers. Omdat er door Pasen minder tijd beschikbaar was, heb ik deze week een relatief kleine maar gerichte iteratie uitgevoerd. De focus lag volledig op het verbeteren van de gebruikerservaring rondom spraakberichten.
+
+Vorige week bleek uit de gebruikerstest dat de standaard audio controls van de browser niet prettig werkten voor Ihab. Vooral het combineren van luisteren naar een spraakbericht en tegelijkertijd typen van een reactie was lastig. Daarom heb ik deze week onderzocht hoe ik de bediening toegankelijker kon maken met behulp van custom controls en keyboard shortcuts.
+
+Ik heb hiervoor de native audio controls vervangen door eigen knoppen met toegankelijkheidsattributen en keyboard ondersteuning. Hierbij heb ik gebruik gemaakt van een MDN-artikel over toegankelijke mediacomponenten. Ook heb ik een shortcut toegevoegd (Ctrl + Spatie) waarmee het spraakbericht gepauzeerd en hervat kan worden zonder de focus uit het tekstveld te halen.
+
+De werking van de shortcuts zijn weergegeven in de onderstaande video. Merk op dat de toetsen die visueel in beeld een extra programma zijn en geen onderdeel van de demo zijn. Ik toon dit om het duidelijker te maken welke toetsten ik indruk voor de shortcuts.
+
+Tijdens de tweede gebruikerstest bleek dat deze verandering een duidelijke verbetering was. Ihab kon het spraakbericht nu onderbreken, een reactie typen en daarna direct verder luisteren. Hierdoor verliep de interactie veel vloeiender dan tijdens de eerste test.
+
+De test bracht ook nieuwe verbeterpunten naar voren. Zo waren de shortcuts moeilijk te ontdekken omdat screenreaders deze niet automatisch voorlazen. Daarnaast ontstond behoefte aan extra shortcuts voor snelheid aanpassen en vooruit- of terugspoelen. Ook bleek dat de terminologie van sommige knoppen niet duidelijk genoeg was.
+
+De feedback uit deze week vormt de basis voor de volgende iteratie, waarin ik de keyboard interacties verder ga uitbreiden en experimenten wil doen met aanvullende UX-functionaliteit voor spraakberichten.
 
 # Test rapportage week 2
 
