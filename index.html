@@ -45,15 +45,10 @@
 
                   <div class="controls" role="group" aria-label="Audiobediening">
                     <button class="play-pause" aria-controls="voiceMessage" aria-keyshortcuts="Control+Space">Start</button>
-
                     <button class="stop" aria-controls="voiceMessage">Stop</button>
-
                     <button class="rwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
-
                     <button class="fwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
-
                     <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
-
                     <span class="time" aria-live="off">00:00</span>
                   </div>
                 </div>
@@ -80,124 +75,112 @@
             </section>
 
             <div class="summary-content hidden">
-              <section class="chat-message receive first-summary" tabindex="-1">
+              <section class="chat-message receive first-summary summary-item" data-summary-index="0" tabindex="-1">
                 <header>
                   <h2 class="sender-name">Samenvatting (1 van 4)</h2>
+                  <span class="check-badge" aria-hidden="true">✓</span>
                 </header>
 
                 <p>Kerr stuurt je een spraakbericht omdat hij dit makkelijker vindt dan typen. Hij vraagt hoe het met je gaat en of je nog leuke dingen hebt meegemaakt.</p>
 
                 <div class="voice-message">
                   <div class="audio-element">
-                    <audio controls id="voiceMessage">
+                    <audio controls>
                       <source src="resources/spraakbericht_samenvatting_1.mp3" type="audio/mpeg" />
                     </audio>
-
                     <div class="controls" role="group" aria-label="Audiobediening">
-                      <button class="play-pause" aria-controls="voiceMessage" aria-keyshortcuts="Control+Space">Start</button>
-
-                      <button class="stop" aria-controls="voiceMessage">Stop</button>
-
-                      <button class="rwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
-
-                      <button class="fwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
-
-                      <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
-
+                      <button class="play-pause" aria-keyshortcuts="Control+Space">Start</button>
+                      <button class="stop">Stop</button>
+                      <button class="rwd" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
+                      <button class="fwd" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
+                      <button class="speed" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
                       <span class="time" aria-live="off">00:00</span>
                     </div>
                   </div>
                 </div>
+
+                <button class="reply-btn" aria-label="Beantwoord samenvatting 1 van 4">Beantwoorden</button>
               </section>
 
-              <section class="chat-message receive">
+              <section class="chat-message receive summary-item" data-summary-index="1" tabindex="-1">
                 <header>
                   <h2 class="sender-name">Samenvatting (2 van 4)</h2>
+                  <span class="check-badge" aria-hidden="true">✓</span>
                 </header>
 
                 <p>Kerr vraagt hoe het gaat met werk of school, en wat je nu precies aan het doen bent.</p>
 
                 <div class="voice-message">
                   <div class="audio-element">
-                    <audio controls id="voiceMessage">
+                    <audio controls>
                       <source src="resources/spraakbericht_samenvatting_2.mp3" type="audio/mpeg" />
                     </audio>
-
                     <div class="controls" role="group" aria-label="Audiobediening">
-                      <button class="play-pause" aria-controls="voiceMessage" aria-keyshortcuts="Control+Space">Start</button>
-
-                      <button class="stop" aria-controls="voiceMessage">Stop</button>
-
-                      <button class="rwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
-
-                      <button class="fwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
-
-                      <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
-
+                      <button class="play-pause" aria-keyshortcuts="Control+Space">Start</button>
+                      <button class="stop">Stop</button>
+                      <button class="rwd" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
+                      <button class="fwd" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
+                      <button class="speed" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
                       <span class="time" aria-live="off">00:00</span>
                     </div>
                   </div>
                 </div>
+
+                <button class="reply-btn" aria-label="Beantwoord samenvatting 2 van 4">Beantwoorden</button>
               </section>
 
-              <section class="chat-message receive">
+              <section class="chat-message receive summary-item" data-summary-index="2" tabindex="-1">
                 <header>
                   <h2 class="sender-name">Samenvatting (3 van 4)</h2>
+                  <span class="check-badge" aria-hidden="true">✓</span>
                 </header>
 
                 <p>Kerr vraagt of je nog een tip hebt voor een film of serie.</p>
 
                 <div class="voice-message">
                   <div class="audio-element">
-                    <audio controls id="voiceMessage">
+                    <audio controls>
                       <source src="resources/spraakbericht_samenvatting_3.mp3" type="audio/mpeg" />
                     </audio>
-
                     <div class="controls" role="group" aria-label="Audiobediening">
-                      <button class="play-pause" aria-controls="voiceMessage" aria-keyshortcuts="Control+Space">Start</button>
-
-                      <button class="stop" aria-controls="voiceMessage">Stop</button>
-
-                      <button class="rwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
-
-                      <button class="fwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
-
-                      <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
-
+                      <button class="play-pause" aria-keyshortcuts="Control+Space">Start</button>
+                      <button class="stop">Stop</button>
+                      <button class="rwd" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
+                      <button class="fwd" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
+                      <button class="speed" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
                       <span class="time" aria-live="off">00:00</span>
                     </div>
                   </div>
                 </div>
+
+                <button class="reply-btn" aria-label="Beantwoord samenvatting 3 van 4">Beantwoorden</button>
               </section>
 
-              <section class="chat-message receive">
+              <section class="chat-message receive summary-item" data-summary-index="3" tabindex="-1">
                 <header>
                   <h2 class="sender-name">Samenvatting (4 van 4)</h2>
+                  <span class="check-badge" aria-hidden="true">✓</span>
                 </header>
 
                 <p>Kerr wil graag weer eens met je afspreken, want het is lang geleden. Wanneer heb je tijd?</p>
 
                 <div class="voice-message">
                   <div class="audio-element">
-                    <audio controls id="voiceMessage">
+                    <audio controls>
                       <source src="resources/spraakbericht_samenvatting_4.mp3" type="audio/mpeg" />
                     </audio>
-
                     <div class="controls" role="group" aria-label="Audiobediening">
-                      <button class="play-pause" aria-controls="voiceMessage" aria-keyshortcuts="Control+Space">Start</button>
-
-                      <button class="stop" aria-controls="voiceMessage">Stop</button>
-
-                      <button class="rwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
-
-                      <button class="fwd" aria-controls="voiceMessage" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
-
-                      <button class="speed" aria-controls="voiceMessage" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
-
+                      <button class="play-pause" aria-keyshortcuts="Control+Space">Start</button>
+                      <button class="stop">Stop</button>
+                      <button class="rwd" aria-keyshortcuts="Control+ArrowLeft">terug 3s</button>
+                      <button class="fwd" aria-keyshortcuts="Control+ArrowRight">vooruit 3s</button>
+                      <button class="speed" aria-label="Afspeelsnelheid: 1x" aria-keyshortcuts="Control+ArrowUp">1x</button>
                       <span class="time" aria-live="off">00:00</span>
                     </div>
                   </div>
                 </div>
+
+                <button class="reply-btn" aria-label="Beantwoord samenvatting 4 van 4">Beantwoorden</button>
               </section>
             </div>
           </div>
@@ -221,6 +204,12 @@
             </section>
           </div>
         </section>
+
+        <div class="reply-context hidden" id="reply-context" aria-live="polite">
+          <span class="reply-context-label">Beantwoorden:</span>
+          <span class="reply-context-text" id="reply-context-text"></span>
+          <button class="reply-context-cancel" id="reply-context-cancel" aria-label="Annuleer antwoord">Stop</button>
+        </div>
 
         <form action="" class="input">
           <textarea name="message-input" id="message-input" aria-label="Jouw bericht"></textarea>

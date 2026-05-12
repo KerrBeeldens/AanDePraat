@@ -9,13 +9,23 @@ let currentMessageBlock = messageBlocks[messageBlocks.length - 1];
 const players = document.querySelectorAll(".voice-message");
 let activePlayer;
 
+// --- Reply-to-summary state ---
+// Tracks which summary index the next sent message will answer (-1 = none)
+let pendingReplyIndex = -1;
+
+const replyContext = document.getElementById("reply-context");
+const replyContextText = document.getElementById("reply-context-text");
+const replyContextCancel = document.getElementById("reply-context-cancel");
+
+// Summary items as an array for easy access
+const summaryItems = Array.from(document.querySelectorAll(".summary-item"));
+const checkedItems = new Set();
+
 // Setup players
 players.forEach((player) => {
-  // Remove all native controls
   const audio = player.querySelector("audio");
   audio.removeAttribute("controls");
 
-  // Audio elements
   const playPauseBtn = player.querySelector(".play-pause");
   const stopBtn = player.querySelector(".stop");
   const rwdBtn = player.querySelector(".rwd");
@@ -23,7 +33,6 @@ players.forEach((player) => {
   const speedBtn = player.querySelector(".speed");
   const timeLabel = player.querySelector(".time");
 
-  // Button Event listeners
   playPauseBtn.addEventListener("click", () => {
     togglePlayback(audio, playPauseBtn);
     activePlayer = player;
@@ -53,25 +62,12 @@ players.forEach((player) => {
     const seconds = Math.floor(audio.currentTime - minutes * 60);
     const minuteValue = minutes < 10 ? `0${minutes}` : minutes;
     const secondValue = seconds < 10 ? `0${seconds}` : seconds;
-
-    const mediaTime = `${minuteValue}:${secondValue}`;
-    timeLabel.textContent = mediaTime;
+    timeLabel.textContent = `${minuteValue}:${secondValue}`;
   };
-
-  // // When ANY element inside gets focus
-  // player.addEventListener("focusin", (e) => {
-  //   activePlayer = e.currentTarget;
-  // });
-
-  // // When ANY element inside is clicked
-  // player.addEventListener("click", () => {
-  //   activePlayer = player;
-  // });
 });
 
 // Voice message controls
 function togglePlayback(player, playPauseBtn) {
-  // Stop all other players
   players.forEach((audio) => {
     if (audio.querySelector("audio") !== player) {
       stop(audio.querySelector("audio"), audio.querySelector(".play-pause"));
@@ -108,7 +104,6 @@ function forward(player, playPauseBtn) {
 
 function cycleSpeed(player, speedBtn) {
   let newSpeed;
-
   switch (speedBtn.textContent) {
     case "1x":
       newSpeed = 1.5;
@@ -123,8 +118,7 @@ function cycleSpeed(player, speedBtn) {
       newSpeed = 1;
       break;
   }
-
-  speedBtn.textContent = newSpeed.toString() + "x";
+  speedBtn.textContent = newSpeed + "x";
   speedBtn.setAttribute("aria-label", `Afspeelsnelheid: ${newSpeed}x`);
   player.playbackRate = newSpeed;
 }
@@ -144,17 +138,14 @@ document.body.addEventListener("keydown", (e) => {
       e.preventDefault();
       togglePlayback(audio, playPauseBtn);
       break;
-
     case "ArrowLeft":
       e.preventDefault();
       rewind(audio);
       break;
-
     case "ArrowRight":
       e.preventDefault();
       forward(audio, playPauseBtn);
       break;
-
     case "ArrowUp":
       e.preventDefault();
       cycleSpeed(audio, speedBtn);
@@ -163,16 +154,12 @@ document.body.addEventListener("keydown", (e) => {
 });
 
 // Source - https://stackoverflow.com/q/8187512
-// Posted by user1027620, modified by community. See post 'Timeline' for change history
-// Retrieved 2026-03-30, License - CC BY-SA 3.0
-
 messageInput.addEventListener("keydown", (e) => {
   if (e.keyCode == 13) {
     if (e.ctrlKey) {
       messageInput.value += "\n";
       return;
     }
-
     e.preventDefault();
     sendMessage();
   }
@@ -185,26 +172,21 @@ form.addEventListener("submit", (e) => {
 
 function sendMessage() {
   let messageText = messageInput.value;
-
-  // If the message is empty or only whitespace, do nothing
   if (!messageText || messageText.trim() === "") return;
-  let messageLines = messageText.split("\n");
 
+  let messageLines = messageText.split("\n");
   messageInput.value = "";
 
-  // Create the chat message element
+  // Build the sent message element
   let messageSection = document.createElement("section");
   messageSection.className = "chat-message send";
 
-  // Create the header
   let header = document.createElement("header");
 
-  // Sender name
   let senderName = document.createElement("span");
   senderName.className = "sender-name";
   senderName.textContent = "Jij";
 
-  // Local time
   let senderTime = document.createElement("span");
   senderTime.className = "sender-time";
   let now = new Date();
@@ -214,25 +196,107 @@ function sendMessage() {
   header.appendChild(senderTime);
   messageSection.appendChild(header);
 
-  // Create paragraphs for each line, preserving whitespaces
   messageLines.forEach((line) => {
     let messagePara = document.createElement("p");
     messagePara.textContent = line;
     messageSection.appendChild(messagePara);
   });
 
-  // Create new message block if needed
   if (!currentMessageBlock) {
     currentMessageBlock = document.createElement("div");
-    currentMessageBlock.className = "message-block";
+    currentMessageBlock.className = "message-block send";
     chatContainer.appendChild(currentMessageBlock);
   }
 
-  // Append the section to the message block
   currentMessageBlock.appendChild(messageSection);
-
-  // Scroll to bottom
   chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  // If this message was a reply to a summary item, check it off
+  if (pendingReplyIndex !== -1) {
+    checkSummaryItem(pendingReplyIndex);
+    clearReplyContext();
+  }
+}
+
+// --- Checklist logic ---
+
+function checkSummaryItem(index) {
+  if (checkedItems.has(index)) return;
+  checkedItems.add(index);
+
+  const item = summaryItems[index];
+  item.classList.add("checked");
+
+  // Disable the reply button so it can't be re-replied
+  const replyBtn = item.querySelector(".reply-btn");
+  if (replyBtn) {
+    replyBtn.disabled = true;
+    replyBtn.textContent = "✓ Beantwoord";
+  }
+
+  if (checkedItems.size === summaryItems.length) {
+    onAllChecked();
+  }
+}
+
+function onAllChecked() {
+  // Show a congratulatory system message in the chat
+  const allDoneBlock = document.createElement("div");
+  allDoneBlock.className = "message-block receive";
+
+  const allDoneMsg = document.createElement("section");
+  allDoneMsg.className = "chat-message receive all-done-message";
+  allDoneMsg.setAttribute("aria-live", "polite");
+  allDoneMsg.innerHTML = `
+    <header>
+      <h2 class="sender-name">AI Chatbot</h2>
+    </header>
+    <p>🎉 Je hebt alle vragen van Kerr beantwoord!</p>
+  `;
+
+  allDoneBlock.appendChild(allDoneMsg);
+  chatContainer.appendChild(allDoneBlock);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+// --- Reply button wiring ---
+
+// Grab the original voice message's timestamp to show in reply context
+const originalVoiceTime = document.querySelector(".message-block.receive .chat-message.receive time.sender-time");
+
+function setReplyContext(index) {
+  const item = summaryItems[index];
+  const titleEl = item.querySelector(".sender-name");
+  const timeStr = originalVoiceTime ? originalVoiceTime.textContent : "";
+  const label = timeStr ? `Spraakbericht - ${titleEl.textContent}` : titleEl.textContent;
+
+  pendingReplyIndex = index;
+
+  replyContextText.textContent = label;
+  replyContext.classList.remove("hidden");
+
+  messageInput.focus();
+}
+
+function clearReplyContext() {
+  pendingReplyIndex = -1;
+  replyContext.classList.add("hidden");
+  replyContextText.textContent = "";
+}
+
+replyContextCancel.addEventListener("click", () => {
+  clearReplyContext();
+});
+
+// Wire reply buttons (summary items exist in DOM but may be hidden — wire on summary reveal)
+function wireReplyButtons() {
+  summaryItems.forEach((item) => {
+    const btn = item.querySelector(".reply-btn");
+    const index = parseInt(item.dataset.summaryIndex, 10);
+    btn.addEventListener("click", () => {
+      setReplyContext(index);
+    });
+  });
 }
 
 // Fake AI generation delay
@@ -240,32 +304,27 @@ const summaryButton = document.querySelector(".summary");
 const aiSummaryBlock = document.querySelector("#ai-summary-block");
 
 summaryButton.addEventListener("click", () => {
-  // Show block with loader
   aiSummaryBlock.classList.remove("hidden");
 
   const loaderMessage = aiSummaryBlock.querySelector(".loading-message");
   const summaryContent = aiSummaryBlock.querySelector(".summary-content");
 
-  // Prevent double clicking
   summaryButton.disabled = true;
 
-  // Scroll again after content appears
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
-  // Move keyboard focus to first summary
   const firstSummary = aiSummaryBlock.querySelector(".first-summary");
   firstSummary.focus();
 
-  // Fake AI loading delay
   setTimeout(() => {
     loaderMessage.classList.add("hidden");
     summaryContent.classList.remove("hidden");
 
-    // Scroll again after content appears
     chatContainer.scrollTop = chatContainer.scrollHeight;
 
-    // Focus first summary
-    const firstSummary = aiSummaryBlock.querySelector(".first-summary");
     firstSummary.focus();
+
+    // Wire up reply buttons now that they're visible
+    wireReplyButtons();
   }, 2000);
 });
