@@ -10,11 +10,23 @@ Ik heb geleerd te werken met `aria-keyshortcuts` om het mogelijk te maken een sh
 
 # Check-out donderdag 07/05 (test 3)
 
-TODO
+Vandaaag heb ik een extra user test uitgevoerd met Ihab om de nieuwe AI samenvattingsfunctie te testen. Tijdens deze test heb ik onderzocht of de samenvattingen ervoor zorgen dat het makkelijker wordt om op langere en rommelige spraakberichten te reageren. Daarnaast heb ik gekeken of de verbeteringen aan de keyboard shortcuts duidelijk genoeg waren.
+
+Ik heb voor de test een langer en expres wat chaotischer spraakbericht geschreven en opgenomen. Vervolgens heb ik binnen het prototype een functie toegevoegd waarmee een gebruiker een AI samenvatting kan genereren. Deze samenvatting deelt het spraakbericht op in kleinere onderdelen, waarbij elk onderdeel afzonderlijk af te luisteren is en voorzien is van een korte tekstuele samenvatting.
+
+Tijdens de test viel op dat Ihab de shortcuts nu veel makkelijker kon vinden en begrijpen. Ook kon hij de AI samenvatting eenvoudig activeren. In eerste instantie moest hij even ontdekken hoe de samenvattingen waren opgebouwd binnen de headingstructuur van de pagina, maar toen hij dit eenmaal doorhad kon hij hier goed doorheen navigeren. Uiteindelijk wist hij het spraakbericht succesvol te beantwoorden met behulp van de samenvatting.
+
+Door deze test heb ik meer inzicht gekregen in hoe belangrijk een duidelijke headingstructuur en semantische navigatie zijn voor screenreadergebruikers. Ook heb ik geleerd dat AI samenvattingen vooral waardevol kunnen zijn bij lange of minder interessante spraakberichten.
 
 # Voortgang week 3
 
-TODO
+In week 3 heb ik gewerkt aan het verbeteren van de toegankelijkheid van de chatapplicatie en heb ik een prototype ontwikkeld voor een AI samenvattingsfunctie bij spraakberichten. Daarnaast heb ik een extra user test uitgevoerd met Ihab om deze nieuwe functionaliteit te evalueren.
+
+Uit de test bleek dat de toevoeging van aria-keyshortcuts succesvol was. Ihab kon de beschikbare shortcuts nu eenvoudig vinden en vond deze logisch opgebouwd. Ook werkte de headingstructuur beter dan in eerdere iteraties, waardoor navigeren met screenreader shortcuts makkelijker werd.
+
+De AI samenvattingsfunctie bleek tijdens de test een positieve toevoeging. Ihab gaf aan dat hij het prettig vond om langere spraakberichten eerst in delen en samenvattingen te kunnen bekijken voordat hij reageerde. Vooral bij langere of minder belangrijke berichten zag hij hier veel waarde in. Wel bleek dat hij in het begin even moest ontdekken op welk headingniveau de samenvattingen stonden. Nadat hij dit had uitgevonden verliep de navigatie soepel.
+
+Het resultaat van deze week is een toegankelijker prototype waarin gebruikers makkelijker door spraakberichten kunnen navigeren en waarbij AI samenvattingen ondersteuning bieden bij het begrijpen en beantwoorden van langere audiofragmenten.
 
 # Test rapportage week 3
 
@@ -78,20 +90,20 @@ De vorige test had ik je gevraagd om met behulp van wat shortcuts een spraakberi
 
 > De vorige keer kon u de shortcuts voor de spraakbericht controls niet vinden. Zou u deze in dit prototype opnieuw kunnen proberen te vinden?
 
-TODO
+Ihab probeerde de applicatie uit en kon redelijk eenvoudig de shortcuts vertellen. Hij vond alle shortcuts logisch.
 
 > De chat applicatie maakt het mogelijk om een AI samenvatting te genereren. Zou u dit kunnen proberen?
 
-TODO
+Hij drukte op de knop en zocht naar de samenvatting. Deze kon hij eenvoudig vinden. Het was voor hem duidelijk dat het overzicht even moest laden.
 
 > Zou u voor mij het spraakbericht in de chat applicatie kunnen beantwoorden door gebruik te maken van de AI samenvatting?
 
-TODO
+In eerste instantie leek hij een beetje moeite te hebben met het AI overzicht navigeren, maar uiteindelijk ging dit goed. Hij vertelde achteraf dat hij moest uitvogelen op welk kopniveau te samenvattingen stonden, maar toen hij dit eenmaal gevonden had vond hij dit logisch.
 
 > Wat vind u van deze manier van reageren op een spraakbericht?
 
-TODO
+Hij vond dit een erg prettige manier van reageren, vooral voor een langer spraakbericht waarbij de inhoud hem niet zoveel interesseerde. Bij persoonlijke berichtjes zou hij dit minder snel gebruiken.
 
 ### Debriefing
 
-TODO
+Ik had gevraagd of Ihab nog andere features zou willen zien in de chat applicatie, maar eigenlijk was hij erg tevreden. Als laatste heb ik Ihab nog bedankt voor zijn tijd.
