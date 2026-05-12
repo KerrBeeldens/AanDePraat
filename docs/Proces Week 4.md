@@ -16,6 +16,8 @@ Vervolgens heb ik met Vasilis de exclusive design principles besproken. Hieruit 
 
 De functionaliteit die ik heb toegevoegd is te vinden in de onderstaande video.
 
+https://github.com/user-attachments/assets/d39911a0-560e-4484-bd2e-892fcea34ae7
+
 Te zien is hoe het mogelijk is om nu op een deel van het spraakbericht te reageren nadat het overzicht gegenereerd is. Dit kan door middel van de knop "beantwoorden". Bij het tekstveld komt te staat waar je op reageert, waarna je vervolgens een berichtje kan typen.
 
 Zodra je het berichtje verstuurd, hoor je een geluidseffect met als doel een soort beloning te creëren. Bij het bericht wat je verstuurd is een quote te zien, waardoor de ander ook weet waar je op reageert.
