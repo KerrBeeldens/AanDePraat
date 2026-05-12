@@ -355,6 +355,33 @@ button:active {
   }
 }
 
+/* Add these rules to your existing style.css */
+
+.reply-quote {
+  border-left: 3px solid rgb(103, 144, 61);
+  background-color: rgba(103, 144, 61, 0.12);
+  border-radius: 4px;
+  padding: 0.4em 0.75em;
+  margin-bottom: 0.6em;
+  font-size: 0.82rem;
+  color: rgb(60, 60, 60);
+  overflow: hidden;
+}
+
+.reply-quote-label {
+  display: block;
+  font-weight: bold;
+  color: rgb(103, 144, 61);
+  margin-bottom: 0.2em;
+}
+
+.reply-quote p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  color: rgb(80, 80, 80);
+}
+
 .all-done-message {
   font-weight: bold;
 }

@@ -13,3 +13,11 @@ Ik heb met Vasilis mijn voortgang besproken tijdens dit project. Ik had aangegev
 Vervolgens heb ik met Vasilis de exclusive design principles besproken. Hieruit kwam naar voren dat ik vooral nog iets kon doen met het 'Add nonsense' principe. Ik had de suggestie gedaan om het AI overzicht als een soort checklist te zien, en zodra je reageert op het spraakbericht van het AI overzicht dat je een checkmark krijgt met een leuk geluid. Je krijgt een extra leuk geluid als je ze allemaal voltooid hebt. Dit leek Vasilis een leuk idee, al benadrukte hij dat het niet nodig was om dit toe te voegen.
 
 ## Voortgang week 4
+
+De functionaliteit die ik heb toegevoegd is te vinden in de onderstaande video.
+
+Te zien is hoe het mogelijk is om nu op een deel van het spraakbericht te reageren nadat het overzicht gegenereerd is. Dit kan door middel van de knop "beantwoorden". Bij het tekstveld komt te staat waar je op reageert, waarna je vervolgens een berichtje kan typen.
+
+Zodra je het berichtje verstuurd, hoor je een geluidseffect met als doel een soort beloning te creëren. Bij het bericht wat je verstuurd is een quote te zien, waardoor de ander ook weet waar je op reageert.
+
+Wanneer je terug naar boven scrolled, zie je dat het bericht waarop je gereageerd hebt ook afgevinkt is. Je kan op deze manier blijven reageren op spraakberichten. Zodra je op alle berichten hebt gereageerd, krijg je een iets blijer geluidseffect, dat aangeeft dat je klaar bent met reageren.

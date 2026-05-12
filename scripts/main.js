@@ -8,20 +8,28 @@ let currentMessageBlock = messageBlocks[messageBlocks.length - 1];
 
 const players = document.querySelectorAll(".voice-message");
 let activePlayer;
-
-// --- Reply-to-summary state ---
-// Tracks which summary index the next sent message will answer (-1 = none)
 let pendingReplyIndex = -1;
 
 const replyContext = document.getElementById("reply-context");
 const replyContextText = document.getElementById("reply-context-text");
 const replyContextCancel = document.getElementById("reply-context-cancel");
 
-// Summary items as an array for easy access
 const summaryItems = Array.from(document.querySelectorAll(".summary-item"));
 const checkedItems = new Set();
 
-// Setup players
+const todoDoneAudio = new Audio("resources/ping.mp3");
+const victoryAudio = new Audio("resources/victory.mp3");
+
+function playTodoDoneSound() {
+  todoDoneAudio.currentTime = 0;
+  todoDoneAudio.play();
+}
+
+function playVictorySound() {
+  victoryAudio.currentTime = 0;
+  victoryAudio.play();
+}
+
 players.forEach((player) => {
   const audio = player.querySelector("audio");
   audio.removeAttribute("controls");
@@ -66,7 +74,6 @@ players.forEach((player) => {
   };
 });
 
-// Voice message controls
 function togglePlayback(player, playPauseBtn) {
   players.forEach((audio) => {
     if (audio.querySelector("audio") !== player) {
@@ -123,7 +130,6 @@ function cycleSpeed(player, speedBtn) {
   player.playbackRate = newSpeed;
 }
 
-// Keyboard shortcuts
 document.body.addEventListener("keydown", (e) => {
   if (!activePlayer) return;
   const isModifier = e.ctrlKey || e.metaKey;
@@ -177,7 +183,8 @@ function sendMessage() {
   let messageLines = messageText.split("\n");
   messageInput.value = "";
 
-  // Build the sent message element
+  const replyIndex = pendingReplyIndex;
+
   let messageSection = document.createElement("section");
   messageSection.className = "chat-message send";
 
@@ -196,6 +203,26 @@ function sendMessage() {
   header.appendChild(senderTime);
   messageSection.appendChild(header);
 
+  if (replyIndex !== -1) {
+    const repliedItem = summaryItems[replyIndex];
+    const repliedText = repliedItem.querySelector("p").textContent;
+    const repliedTitle = repliedItem.querySelector(".sender-name").textContent;
+
+    const quote = document.createElement("blockquote");
+    quote.className = "reply-quote";
+
+    const quoteLabel = document.createElement("span");
+    quoteLabel.className = "reply-quote-label";
+    quoteLabel.textContent = repliedTitle;
+
+    const quoteText = document.createElement("p");
+    quoteText.textContent = repliedText;
+
+    quote.appendChild(quoteLabel);
+    quote.appendChild(quoteText);
+    messageSection.appendChild(quote);
+  }
+
   messageLines.forEach((line) => {
     let messagePara = document.createElement("p");
     messagePara.textContent = line;
@@ -211,14 +238,11 @@ function sendMessage() {
   currentMessageBlock.appendChild(messageSection);
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
-  // If this message was a reply to a summary item, check it off
-  if (pendingReplyIndex !== -1) {
-    checkSummaryItem(pendingReplyIndex);
+  if (replyIndex !== -1) {
+    checkSummaryItem(replyIndex);
     clearReplyContext();
   }
 }
-
-// --- Checklist logic ---
 
 function checkSummaryItem(index) {
   if (checkedItems.has(index)) return;
@@ -227,41 +251,51 @@ function checkSummaryItem(index) {
   const item = summaryItems[index];
   item.classList.add("checked");
 
-  // Disable the reply button so it can't be re-replied
   const replyBtn = item.querySelector(".reply-btn");
   if (replyBtn) {
     replyBtn.disabled = true;
     replyBtn.textContent = "✓ Beantwoord";
   }
 
-  if (checkedItems.size === summaryItems.length) {
+  const allDone = checkedItems.size === summaryItems.length;
+
+  if (allDone) {
+    setTimeout(() => playVictorySound(), 400);
     onAllChecked();
+  } else {
+    playTodoDoneSound();
   }
 }
 
 function onAllChecked() {
-  // Show a congratulatory system message in the chat
   const allDoneBlock = document.createElement("div");
   allDoneBlock.className = "message-block receive";
 
+  const profilePic = document.createElement("img");
+  profilePic.src = "resources/aipfp.png";
+  profilePic.alt = "";
+  profilePic.className = "chat-profile-picture sender";
+
+  const now = new Date();
+  const timeStr = now.getHours().toString().padStart(2, "0") + ":" + now.getMinutes().toString().padStart(2, "0");
+
   const allDoneMsg = document.createElement("section");
-  allDoneMsg.className = "chat-message receive all-done-message";
+  allDoneMsg.className = "chat-message receive";
   allDoneMsg.setAttribute("aria-live", "polite");
   allDoneMsg.innerHTML = `
     <header>
       <h2 class="sender-name">AI Chatbot</h2>
+      <time class="sender-time">${timeStr}</time>
     </header>
     <p>🎉 Je hebt alle vragen van Kerr beantwoord!</p>
   `;
 
+  allDoneBlock.appendChild(profilePic);
   allDoneBlock.appendChild(allDoneMsg);
   chatContainer.appendChild(allDoneBlock);
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-// --- Reply button wiring ---
-
-// Grab the original voice message's timestamp to show in reply context
 const originalVoiceTime = document.querySelector(".message-block.receive .chat-message.receive time.sender-time");
 
 function setReplyContext(index) {
@@ -288,7 +322,6 @@ replyContextCancel.addEventListener("click", () => {
   clearReplyContext();
 });
 
-// Wire reply buttons (summary items exist in DOM but may be hidden — wire on summary reveal)
 function wireReplyButtons() {
   summaryItems.forEach((item) => {
     const btn = item.querySelector(".reply-btn");
@@ -299,7 +332,6 @@ function wireReplyButtons() {
   });
 }
 
-// Fake AI generation delay
 const summaryButton = document.querySelector(".summary");
 const aiSummaryBlock = document.querySelector("#ai-summary-block");
 
@@ -324,7 +356,6 @@ summaryButton.addEventListener("click", () => {
 
     firstSummary.focus();
 
-    // Wire up reply buttons now that they're visible
     wireReplyButtons();
   }, 2000);
 });
