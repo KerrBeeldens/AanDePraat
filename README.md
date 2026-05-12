@@ -13,7 +13,3 @@ Beschikbaar via [GitHub Pages](https://kerrbeeldens.github.io/AanDePraat/).
 4. [Proces Week 4](/docs/Proces%20Week%204.md)
 5. [Referenties](/docs/Referenties.md)
 6. [Ruwe Notulen User Tests](/docs/Ruwe%20Notulen%20User%20Tests.md)
-
-# Projectbeschrijving
-
-_Dit onderdeel volgt zodra het project (nagenoeg) afgerond is._
